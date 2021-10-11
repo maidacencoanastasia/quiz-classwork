@@ -7,12 +7,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.PostConstruct;
 import java.util.List;
 
-@RestController
+//@RestController
 @Controller
 @RequestMapping("questions")
 public class QuestionController {
@@ -21,16 +23,33 @@ public class QuestionController {
 
     private QuestionService  questionService;
 
+//    @PostConstruct
+//    public  void init(){
+//        Question question = new Question();
+//    }
+
     @GetMapping("/questions")
     public String getQuestions(Model model) {
         return "questions";
     }
-
+    @Transactional(readOnly = true)
     @GetMapping("/question/{id}")
     public String getQuestion(@PathVariable int id, Model model) {
-        model.addAttribute("id", id);
+        Question question = questionRepository.findById(id).get();
+        model.addAttribute("question", question);
         return "question";
     }
+
+    @PostMapping("/question")
+    public String PostQuestion(UserAnswerForm form){
+        System.out.println("123");
+        return "redirect:/questions/question/1";
+    }
+
+
+
+
+
 
     // create REST API
     @PostMapping("")

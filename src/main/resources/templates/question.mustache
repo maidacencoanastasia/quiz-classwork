@@ -1,2 +1,13 @@
-From all List:
-<li><strong>Question {{id}}</strong></li>
+<!--From all List:-->
+<!--<li><strong>Question</strong></li>-->
+<p><strong>{{question.text}}</strong></p>
+<form method="post" action="/questions/question">
+    <input type="hidden" name="id" value="{{id}}">
+    <ol> {{#question.choices}}
+
+        <li><input type="radio" name="choice" value="{{id}}">{{text}}</li>
+
+    {{/question.choices}}
+    </ol>
+    <input type="submit" value="Submit">
+</form>
