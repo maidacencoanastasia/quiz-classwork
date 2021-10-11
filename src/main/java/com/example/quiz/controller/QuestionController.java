@@ -53,13 +53,13 @@ public class QuestionController {
 
     // create REST API
     @PostMapping("")
-    public ResponseEntity<Question> saveStudent(@RequestBody Question question) {
+    public ResponseEntity<Question> saveQuestion(@RequestBody Question question) {
         return new ResponseEntity<>(questionService.saveQuestion(question), HttpStatus.CREATED);
     }
 
     // get REST API
     @GetMapping
-    public List<Question> getAllStudents() {
+    public List<Question> getAllQuestions() {
         return questionService.getAllQuestions();
     }
 
