@@ -1,7 +1,9 @@
 package com.example.quiz.controller;
 
 import com.example.quiz.model.Question;
+import com.example.quiz.model.UserAccess;
 import com.example.quiz.repository.QuestionRepository;
+import com.example.quiz.repository.UserAccessRepository;
 import com.example.quiz.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,18 +22,38 @@ import java.util.List;
 public class QuestionController {
     @Autowired
     private QuestionRepository questionRepository;
+    private QuestionService questionService;
+    private UserAccessRepository userAccessRepository;
 
-//    private QuestionService  questionService;
+    public QuestionController(UserAccessRepository userAccessRepository) {
+        this.userAccessRepository = userAccessRepository;
+    }
 
-//    @PostConstruct
+    //    @PostConstruct
 //    public  void init(){
 //        Question question = new Question();
 //    }
+    @GetMapping("/view-next-question")
+    public String viewQuestion(@RequestParam(required = false) Integer id, @RequestParam int userAccessId, Model model) throws Exception {
+        UserAccess userAccess = userAccessRepository.findById(userAccessId)
+                .orElseThrow(() -> new Exception(" No user access row found"));
+        Question question;
+        if (id!=null){
+            question = questionRepository.findTop1ByIdGreaterThanOrderByIdAsc(id);
+        }else{
+            question = questionRepository.findTop1ByOrderByIdAsc();
+        }
+        model.addAttribute("user_Access", userAccess);
+        model.addAttribute("question",question);
+        return "question";
+
+    }
 
     @GetMapping("/questions")
     public String getQuestions(Model model) {
         return "questions";
     }
+
     @Transactional(readOnly = true)
     @GetMapping("/question/{id}")
     public String getQuestion(@PathVariable int id, Model model) {
@@ -41,14 +63,10 @@ public class QuestionController {
     }
 
     @PostMapping("/question")
-    public String PostQuestion(UserAnswerForm form){
+    public String PostQuestion(UserAnswerForm form) {
         System.out.println("123");
         return "redirect:/questions/question/1";
     }
-
-
-
-
 
 
     // create REST API
