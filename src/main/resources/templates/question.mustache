@@ -1,13 +1,23 @@
 <!--From all List:-->
 <!--<li><strong>Question</strong></li>-->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Question</title>
+</head>
+<body>
+<h1> Test </h1>
+<p>Utilizator : {{userAccess.name}}</p>
 <p><strong>{{question.text}}</strong></p>
-<form method="post" action="/questions/question">
+<form method="post" action="/questions/submit-question-answer">
     <input type="hidden" name="id" value="{{id}}">
     <ol> {{#question.choices}}
-
         <li><input type="radio" name="choice" value="{{id}}">{{text}}</li>
-
     {{/question.choices}}
     </ol>
     <input type="submit" value="Submit">
 </form>
+
+</body>
+</html>
