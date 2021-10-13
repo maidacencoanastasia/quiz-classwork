@@ -52,34 +52,34 @@ public class QuestionController {
 
 
     // create REST API
-    @PostMapping("")
-    public ResponseEntity<Question> saveQuestion(@RequestBody Question question) {
-        return new ResponseEntity<>(questionService.saveQuestion(question), HttpStatus.CREATED);
-    }
+//    @PostMapping("")
+//    public ResponseEntity<Question> saveQuestion(@RequestBody Question question) {
+//        return new ResponseEntity<>(questionService.saveQuestion(question), HttpStatus.CREATED);
+//    }
 
-    // get REST API
-    @GetMapping
-    public List<Question> getAllQuestions() {
-        return questionService.getAllQuestions();
-    }
-
-    // get  by id REST API
-    @GetMapping("/questions/{id}")
-    public ResponseEntity<Question> getQuestionById(@PathVariable("id") int questionId) {
-        return new ResponseEntity<Question>(questionService.getQuestionById(questionId), HttpStatus.OK);
-    }
-
-    // update REST API
-    @PutMapping("/questions/{id}")
-    public ResponseEntity<Question> updateQuestion(@PathVariable("id") int questionId, @RequestBody Question question) {
-        return new ResponseEntity<Question>(questionService.updateQuestion(question, questionId), HttpStatus.OK);
-    }
-
-    // delete REST API
-    @DeleteMapping("/questions/{id}")
-    public ResponseEntity<String> deleteQuestion(@PathVariable("id") int questionId) {
-        questionService.deleteQuestion(questionId);
-        return new ResponseEntity<String>("Question was successfully delete", HttpStatus.OK);
-    }
+//    // get REST API
+//    @GetMapping
+//    public List<Question> getAllQuestions() {
+//        return questionService.getAllQuestions();
+//    }
+//
+//    // get  by id REST API
+//    @GetMapping("/questions/{id}")
+//    public ResponseEntity<Question> getQuestionById(@PathVariable("id") int questionId) {
+//        return new ResponseEntity<Question>(questionService.getQuestionById(questionId), HttpStatus.OK);
+//    }
+//
+//    // update REST API
+//    @PutMapping("/questions/{id}")
+//    public ResponseEntity<Question> updateQuestion(@PathVariable("id") int questionId, @RequestBody Question question) {
+//        return new ResponseEntity<Question>(questionService.updateQuestion(question, questionId), HttpStatus.OK);
+//    }
+//
+//    // delete REST API
+//    @DeleteMapping("/questions/{id}")
+//    public ResponseEntity<String> deleteQuestion(@PathVariable("id") int questionId) {
+//        questionService.deleteQuestion(questionId);
+//        return new ResponseEntity<String>("Question was successfully delete", HttpStatus.OK);
+//    }
 
 }
