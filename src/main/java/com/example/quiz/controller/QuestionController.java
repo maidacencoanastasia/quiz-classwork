@@ -21,7 +21,7 @@ public class QuestionController {
     @Autowired
     private QuestionRepository questionRepository;
 
-    private QuestionService  questionService;
+//    private QuestionService  questionService;
 
 //    @PostConstruct
 //    public  void init(){
