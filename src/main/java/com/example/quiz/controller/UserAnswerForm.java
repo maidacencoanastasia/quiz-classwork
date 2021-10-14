@@ -1,11 +1,10 @@
 package com.example.quiz.controller;
 
+import com.example.quiz.model.Question;
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.List;
 
 @Data
 @Entity
@@ -15,4 +14,8 @@ public class UserAnswerForm {
     @GeneratedValue
     private int id;
     private int choice;
+
+    @OneToOne
+    @JoinColumn(name = "question_id")
+    private Question question;
 }

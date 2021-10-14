@@ -9,7 +9,7 @@
 <h1> Test </h1>
 <p>Utilizator : {{userAccess.name}}</p>
 <p><strong>{{question.text}}</strong></p>
-<form method="post" action="/questions/submit-question-answer">
+<form method="post" action="/questions/submit-question-answer?userAccessId={{userAccess.id}}">
     <input type="hidden" name="id" value="{{id}}">
     <ol> {{#question.choices}}
         <li><input type="radio" name="choice" value="{{id}}">{{text}}</li>

@@ -2,8 +2,11 @@ package com.example.quiz.controller;
 
 import com.example.quiz.model.Question;
 import com.example.quiz.model.UserAccess;
+import com.example.quiz.model.UserAnswer;
+import com.example.quiz.repository.QuestionChoiceRepository;
 import com.example.quiz.repository.QuestionRepository;
 import com.example.quiz.repository.UserAccessRepository;
+import com.example.quiz.repository.UserAnswerRepository;
 import com.example.quiz.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,6 +17,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.PostConstruct;
+import java.time.LocalDateTime;
 import java.util.List;
 
 //@RestController
@@ -24,6 +28,8 @@ public class QuestionController {
     private QuestionRepository questionRepository;
     private QuestionService questionService;
     private UserAccessRepository userAccessRepository;
+    private UserAnswerRepository userAnswerRepository;
+    private QuestionChoiceRepository questionChoiceRepository;
 
     public QuestionController(UserAccessRepository userAccessRepository) {
         this.userAccessRepository = userAccessRepository;
@@ -68,6 +74,20 @@ public class QuestionController {
         return "redirect:/questions/question/1";
     }
 
+//    @PostMapping("/submit-question-answer")
+//    public String submitUserAnswer(UserAnswerForm form, @RequestParam int userAccessId) throws Exception {
+//        UserAccess userAccess = userAccessRepository.findById(userAccessId)
+//                .orElseThrow(() -> new Exception(" No user access row found"));
+//
+//        //some problems form.getQuestion()
+//        Question question = questionRepository.findById(form.getQuestion()).get();
+//        UserAnswer userAnswer = new UserAnswer();
+//        userAnswer.setUserAccess(userAccess);
+//        userAnswer.setQuestion(question);
+//        userAnswer.setQuestionChoice(questionChoiceRepository.findById(form.getChoice()).get());
+//        userAnswerRepository.save(userAnswer);
+//        return "redirect:/questions/view-next-question?userAccessId"+ userAccess.getId() +"&id="+question.getId();
+//    }
 
     // create REST API
 //    @PostMapping("")
@@ -81,11 +101,11 @@ public class QuestionController {
 //        return questionService.getAllQuestions();
 //    }
 //
-//    // get  by id REST API
-//    @GetMapping("/questions/{id}")
-//    public ResponseEntity<Question> getQuestionById(@PathVariable("id") int questionId) {
-//        return new ResponseEntity<Question>(questionService.getQuestionById(questionId), HttpStatus.OK);
-//    }
+    // get  by id REST API
+    @GetMapping("/questions/{id}")
+    public ResponseEntity<Question> getQuestionById(@PathVariable("id") int questionId) {
+        return new ResponseEntity<Question>(questionService.getQuestionById(questionId), HttpStatus.OK);
+    }
 //
 //    // update REST API
 //    @PutMapping("/questions/{id}")
